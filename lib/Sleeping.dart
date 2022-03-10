@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'mainScreen.dart';
 
-import 'package:flutter/material.dart';
-
 class Sleeping extends StatefulWidget {
   const Sleeping({Key? key}) : super(key: key);
   State<StatefulWidget> createState(){
@@ -17,7 +15,6 @@ class SleepingState extends State<Sleeping> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(title: Text('Sleeping Page')),
       backgroundColor: Colors.white, //background color of canvas
       body: Container(
           width: MediaQuery.of(context).size.width,
@@ -31,7 +28,7 @@ class SleepingState extends State<Sleeping> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Divider(
-                  height: 120,
+                  height: 180,
                   color: Colors.transparent,
                 ),
                 Text(
@@ -64,14 +61,11 @@ class SleepingState extends State<Sleeping> {
                 Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   color: Color(0xFFF5F5F5),
-                  child: Text(
-                    'Time Remaining: xxx\n\n\n',
-                      style: TextStyle(
-                        fontFamily: 'Quicksand',
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      )
-                  ),
+                  child:Column(children: [
+                    Text('Duration: ${mainScreenState.duration}'),
+                    Text('Sound: ${mainScreenState.sound}'),
+                    Text('Sunrise Alarm: ${mainScreenState.sunrisedAlarm}'),
+                  ],),
                 ),
                 Divider(
                   height: 150,
@@ -81,8 +75,12 @@ class SleepingState extends State<Sleeping> {
                   alignment: AlignmentDirectional(0, 0),
                   child: ElevatedButton.icon(
                     label: Text('Stop'),
-                    onPressed: () {print('Button pressed ...');},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder:(context)=>mainScreen()));
+                    },
                     icon: Icon(Icons.pause, size: 12,),
+
                   ),
                 ),
               ],
