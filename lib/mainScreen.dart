@@ -5,6 +5,7 @@ import 'Sleeping.dart';
 import 'main.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class mainScreen extends StatefulWidget{
   State<StatefulWidget> createState(){
@@ -26,7 +27,7 @@ class mainScreen extends StatefulWidget{
   static int hours = 0;
   static int minutes = 0;
   static int seconds = 0;
-
+  String customString = 'Custom';
   TimeOfDay _time = TimeOfDay.now().replacing(hour: 11, minute: 30);
   bool iosStyle = true;
 
@@ -48,12 +49,22 @@ class mainScreen extends StatefulWidget{
   @override
   Widget build(BuildContext context) {
 
+    setState(() {
+      if(custom){
+        totoalminutes = (_time.hour*60 + _time.minute)-(DateTime.now().hour*60+DateTime.now().minute);
+        totoalminutes = totoalminutes>0? totoalminutes:totoalminutes+24*60;
+        hours = totoalminutes ~/ 60;
+        minutes = totoalminutes % 60;
+        customString = '${hours}h ${minutes}m';
+      }
+    });
+
     return MaterialApp(home: Scaffold(
-    appBar: AppBar(title: Text('  SuperNap',style: TextStyle(color: Colors.black),),backgroundColor: Colors.white,elevation: 0,),
-    body:
+      appBar: AppBar(title: Text('  SuperNap',                          style: GoogleFonts.quicksand(
+        fontWeight: FontWeight.w600,textStyle: TextStyle(color: Colors.black, letterSpacing: .5),),),backgroundColor: Colors.white,elevation: 0,),
+      body:
 
     Column( children:[
-
       //device information
       Padding(
         padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
@@ -105,7 +116,7 @@ class mainScreen extends StatefulWidget{
                   Expanded(
                     child: Padding(
                       padding:
-                      EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                      EdgeInsetsDirectional.fromSTEB(9, 2, 0, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -115,51 +126,43 @@ class mainScreen extends StatefulWidget{
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Column(
-                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Align(
                                     alignment:
-                                    AlignmentDirectional(-1, 0),
+                                    AlignmentDirectional(0, 0),
                                     child: Text(
                                       'SNMask v1.024',
-                                        style: TextStyle(
-                                          fontFamily: 'Quicksand',
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600,
-                                        )
+                                      style: GoogleFonts.quicksand(
+                                        fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 13, color: Colors.black, letterSpacing: .5),),
                                     ),
                                   ),
                                   Align(
                                     alignment:
-                                    AlignmentDirectional(-1, 0),
+                                    AlignmentDirectional(0, 0),
                                     child: Padding(
                                       padding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           0, 4, 0, 4),
                                       child: Text(
                                         'Simon\'s Mask',
-                                          style: TextStyle(
-                                            fontFamily: 'Quicksand',
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600,
-                                          )
+                                        style: GoogleFonts.quicksand(
+                                          fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 13, color: Colors.black, letterSpacing: .5),),
                                       ),
                                     ),
                                   ),
                                   Align(
                                     alignment:
-                                    AlignmentDirectional(-1, 0),
+                                    AlignmentDirectional(0, 0),
                                     child: Padding(
                                       padding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           0, 4, 0, 4),
                                       child: Text(
                                         'Battery: 69%',
-                                          style: TextStyle(
-                                            fontFamily: 'Quicksand',
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600,
-                                          )
+                                        style: GoogleFonts.quicksand(
+                                          fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 13, color: Colors.black, letterSpacing: .5),),
                                       ),
                                     ),
                                   ),
@@ -181,7 +184,7 @@ class mainScreen extends StatefulWidget{
                                     ),
                                     onPressed: () {
                                       Navigator.push(context,
-                                         MaterialPageRoute(builder:(context)=>DevicePage()));
+                                          MaterialPageRoute(builder:(context)=>DevicePage()));
                                     },
                                   ),
                                 ),
@@ -205,7 +208,10 @@ class mainScreen extends StatefulWidget{
         child:
             Column(children: [
               Row(children: [
-                Text('Mode',style: TextStyle(fontSize: 20,color: Colors.black)), //time length module
+                Text('Mode',
+                  style: GoogleFonts.quicksand(
+                  fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: .5),),
+                ), //time length module
               ]),
             ],)
       ),
@@ -227,17 +233,24 @@ class mainScreen extends StatefulWidget{
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
+                      primary: Colors.white,
                       minimumSize: Size(183,80),
-
+                      elevation: 5
                     ),
                     child: Column(children: [
-                      Text('Quick Nap',style: TextStyle(fontSize: 20,color: Colors.white)),
-                      Row(children: [
-                        Icon(Icons.access_alarm , color: Colors.white, size: 15,),
-                        Text(' '),
-                        Text('5 - 24 minutes',style: TextStyle(fontSize: 15,color: Colors.white))],)
-                    ],
+                      Text('Quick Nap',
+                        style: GoogleFonts.quicksand(
+                        fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: .5),),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0,8,0,0),
+                          child: Row(children: [
+                        Icon(Icons.access_alarm , color: Colors.black, size: 15,),
+                        Text(' 5 - 24 minutes',
+                          style: GoogleFonts.quicksand(
+                            fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 12, color: Colors.black, letterSpacing: .5),),
+                        )])
+                      )],
                     )
                 ),
               ),
@@ -252,16 +265,24 @@ class mainScreen extends StatefulWidget{
 
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
-                      minimumSize: Size(183,80)
+                      primary: Colors.white,
+                      minimumSize: Size(183,80),
+                    elevation: 5
                   ),
                   child: Column(children: [
-                    Text('Deep Sleep',style: TextStyle(fontSize: 20,color: Colors.white)),
-                    Row(children: [
-                      Icon(Icons.access_alarm , color: Colors.white, size: 15,),
-                      Text(' '),
-                      Text('4-5 hours',style: TextStyle(fontSize: 15,color: Colors.white))],)
-                  ],)
+                    Text('Deep Sleep',
+                      style: GoogleFonts.quicksand(
+                        fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: .5),),
+              ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0,8,0,0),
+                        child: Row(children: [
+                          Icon(Icons.access_alarm , color: Colors.black, size: 15,),
+                          Text(' 6 - 10 hours',
+                            style: GoogleFonts.quicksand(
+                              fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 12, color: Colors.black, letterSpacing: .5),),
+                          )]))
+                    ],)
               ),
             ],),
         ),
@@ -270,21 +291,24 @@ class mainScreen extends StatefulWidget{
         padding: EdgeInsets.fromLTRB(20,20,20,0),
         child:
         Row(children: [
-          Text('Sound',style: TextStyle(fontSize: 20,color: Colors.black)), //time length module
+          Text('Sound',
+            style: GoogleFonts.quicksand(
+            fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: .5),),
+          ), //time length module
         ]),
       ),
       Padding(
         padding: EdgeInsets.fromLTRB(20,8,0,20),
         child:
         Container(
-          height: 80,
+          height: 90,
           child:
           ListView(
             scrollDirection: Axis.horizontal,
             children: [
 
               Padding(
-                  padding: EdgeInsets.fromLTRB(0,5,5,0),
+                  padding: EdgeInsets.fromLTRB(0,5,5,5),
                   child:
                   ElevatedButton(
                       onPressed: (){
@@ -294,18 +318,28 @@ class mainScreen extends StatefulWidget{
                         player.open(Audio('assets/sound/rain.mp3'),showNotification: true);
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          minimumSize: Size(120,60)
+                          primary: Colors.white,
+                          minimumSize: Size(120,60),
+                        elevation: 5
                       ),
-                      child: Column(children: [
-                        Icon(Icons.bathroom , color: Colors.white, size: 50,),
-                        Text('Rain',style: TextStyle(fontSize: 15,color: Colors.white)),
-                      ],)
+                      child:
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0,10,50,0),
+                        child:
+                        Column(
+                          children: [
+                            Icon(Icons.bathroom , color: Colors.black, size: 40,),
+                            Text('Rain',
+                              style: GoogleFonts.quicksand(
+                                fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 15, color: Colors.black, letterSpacing: .5),),
+                            ),
+                          ],)
+                      ),
                   ),
               ),
 
               Padding(
-                  padding: EdgeInsets.fromLTRB(0,5,5,0),
+                  padding: EdgeInsets.fromLTRB(0,5,5,5),
                   child:
                   ElevatedButton(
                       onPressed: (){
@@ -315,17 +349,30 @@ class mainScreen extends StatefulWidget{
                         player.open(Audio('assets/sound/lecture.mp3'),showNotification: true);
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
+                          primary: Colors.white,
+                          elevation: 5,
                           minimumSize: Size(120,60)
                       ),
-                      child: Column(children: [
-                        Icon(Icons.book , color: Colors.white, size: 50,),
-                        Text('Lecture',style: TextStyle(fontSize: 15,color: Colors.white)),
-                      ],)
+                      child:
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0,10,40,0),
+                          child:
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
+                            children: [
+                              Icon(Icons.book_outlined , color: Colors.black, size: 40,),
+                              Text('Lecture',
+                                style: GoogleFonts.quicksand(
+                                  fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 15, color: Colors.black, letterSpacing: .5),),
+                              ),
+                            ],)
+                      ),
                   ),
               ),
               Padding(
-                  padding: EdgeInsets.fromLTRB(0,5,5,0),
+                  padding: EdgeInsets.fromLTRB(0,5,5,5),
                   child:
                   ElevatedButton(
                       onPressed: (){
@@ -335,17 +382,30 @@ class mainScreen extends StatefulWidget{
                         player.open(Audio('assets/sound/meditation.mp3'),showNotification: true);
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
+                          primary: Colors.white,
+                          elevation: 5,
                           minimumSize: Size(120,60)
                       ),
-                      child: Column(children: [
-                        Icon(Icons.cloud , color: Colors.white, size: 50,),
-                        Text('Medit',style: TextStyle(fontSize: 15,color: Colors.white)),
-                      ],)
+                      child:
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0,10,15,0),
+                          child:
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
+                            children: [
+                              Icon(Icons.cloud_queue , color: Colors.black, size: 40,),
+                              Text('Meditaiton',
+                                style: GoogleFonts.quicksand(
+                                  fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 15, color: Colors.black, letterSpacing: .5),),
+                              ),
+                            ],)
+                      ),
                   ),
               ),
               Padding(
-                  padding: EdgeInsets.fromLTRB(0,5,5,0),
+                  padding: EdgeInsets.fromLTRB(0,5,5,5),
                   child:
                   ElevatedButton(
                       onPressed: (){
@@ -355,17 +415,30 @@ class mainScreen extends StatefulWidget{
                         player.open(Audio('assets/sound/lofi.mp3'),showNotification: true);
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
+                          primary: Colors.white,
+                          elevation: 5,
                           minimumSize: Size(120,60)
                       ),
-                      child: Column(children: [
-                        Icon(Icons.local_cafe , color: Colors.white, size: 50,),
-                        Text('Lofi',style: TextStyle(fontSize: 15,color: Colors.white)),
-                      ],)
+                      child:
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0,10,55,0),
+                          child:
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
+                            children: [
+                              Icon(Icons.coffee , color: Colors.black, size: 40,),
+                              Text('Lofi',
+                                style: GoogleFonts.quicksand(
+                                  fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 15, color: Colors.black, letterSpacing: .5),),
+                              ),
+                            ],)
+                      ),
                   ),
               ),
               Padding(
-                  padding: EdgeInsets.fromLTRB(0,5,5,0),
+                  padding: EdgeInsets.fromLTRB(0,5,5,5),
                   child:
                   ElevatedButton(
                       onPressed: (){
@@ -374,13 +447,25 @@ class mainScreen extends StatefulWidget{
                         print(custom);
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
+                          primary: Colors.white,
+                          elevation: 5,
                           minimumSize: Size(120,60)
                       ),
-                      child: Column(children: [
-                        Icon(Icons.favorite_border , color: Colors.white, size: 50,),
-                        Text('Custom',style: TextStyle(fontSize: 15,color: Colors.white)),
-                      ],)
+                      child:
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0,10,40,0),
+                          child:
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(Icons.heart_broken , color: Colors.black, size: 40,),
+                              Text('Custom',
+                                style: GoogleFonts.quicksand(
+                                  fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 15, color: Colors.black, letterSpacing: .5),),
+                              ),
+                            ],)
+                      ),
                   ),
               ),
             ],
@@ -393,7 +478,10 @@ class mainScreen extends StatefulWidget{
             padding: EdgeInsets.fromLTRB(20,0,0,0),
             child:
             Row(children: [
-              Text('Duration',style: TextStyle(fontSize: 20,color: Colors.black)), //time length module
+              Text('Duration',
+                style: GoogleFonts.quicksand(
+                fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: .5),),
+              ), //time length module
             ]),
         ),
       Padding(
@@ -415,11 +503,15 @@ class mainScreen extends StatefulWidget{
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
+                        primary: Colors.white,
+                        elevation: 5,
                         minimumSize: Size(90,50)
                     ),
                     child:
-                    Text(timeused1,style: TextStyle(fontSize: 15,color: Colors.white)),
+                    Text(timeused1,
+                      style: GoogleFonts.quicksand(
+                    fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 15, color: Colors.black, letterSpacing: .5),),
+      ),
                   ),
               ),
               Padding(
@@ -437,11 +529,15 @@ class mainScreen extends StatefulWidget{
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
+                        primary: Colors.white,
+                        elevation: 5,
                         minimumSize: Size(90,50)
                     ),
                     child:
-                    Text(timeused2,style: TextStyle(fontSize: 15,color: Colors.white)),
+                    Text(timeused2,
+                      style: GoogleFonts.quicksand(
+                      fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 15, color: Colors.black, letterSpacing: .5),),
+                    ),
                   ),
               ),
               Padding(
@@ -459,11 +555,15 @@ class mainScreen extends StatefulWidget{
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
+                        primary: Colors.white,
+                        elevation: 5,
                         minimumSize: Size(90,50)
                     ),
                     child:
-                    Text(timeused3,style: TextStyle(fontSize: 15,color: Colors.white)),
+                    Text(timeused3,
+                      style: GoogleFonts.quicksand(
+                      fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 15, color: Colors.black, letterSpacing: .5),),
+                    ),
                   ),
               ),
               Padding(
@@ -481,11 +581,15 @@ class mainScreen extends StatefulWidget{
                       );
                       },
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
+                        primary: Colors.white,
+                        elevation: 5,
                         minimumSize: Size(90,50)
                     ),
                     child:
-                    Text('Custom',style: TextStyle(fontSize: 15,color: Colors.white)),
+                    Text('$customString',
+                      style: GoogleFonts.quicksand(
+                      fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 15, color: Colors.black, letterSpacing: .5),),
+                    ),
                   ),
               ),
       ],),
@@ -493,12 +597,15 @@ class mainScreen extends StatefulWidget{
 
     //sunrise module
         Padding(
-            padding: EdgeInsets.fromLTRB(20,5,0,65),
+            padding: EdgeInsets.fromLTRB(20,5,0,50),
             child:
             Row(children: [
-              Text('Sunrise Alarm',style: TextStyle(fontSize: 20,color: Colors.black)),
+              Text('Sunrise Alarm',
+                style: GoogleFonts.quicksand(
+                fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: .5),),
+              ),
               Padding(
-                padding: EdgeInsets.fromLTRB(173,0,0,0),
+                padding: EdgeInsets.fromLTRB(160,0,0,0),
                 child:
                 CrazySwitch(),
               ),
@@ -519,10 +626,13 @@ class mainScreen extends StatefulWidget{
               startSleeping();
             },
             icon: Icon(
-              Icons.nights_stay_outlined , color: Colors.white, size: 20.0,),
-            label: Text('Start Now',style: TextStyle(fontSize: 18,color: Colors.white)),
+              Icons.nights_stay_outlined , color: Colors.black, size: 20.0,),
+            label: Text('Start Now',
+              style: GoogleFonts.quicksand(
+              fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: .5),),
+            ),
             style: ElevatedButton.styleFrom(
-                primary: Colors.blue,
+                primary: Colors.white,
                 minimumSize: Size(MediaQuery.of(context).size.width * 0.88,50)
             ),
           ),

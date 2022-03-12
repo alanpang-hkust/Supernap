@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'mainScreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Sleeping extends StatefulWidget {
   const Sleeping({Key? key}) : super(key: key);
@@ -41,16 +42,27 @@ class SleepingState extends State<Sleeping> {
     final addSeconds = isCountdown ? -1 : 1;
     setState(() {
       final seconds = duration.inSeconds+addSeconds;
-      if(seconds<=0) {
+      if(seconds<0) {
         if(mainScreenState.sunrisedAlarm){
           print("time out, finish sleep"); //when countdown ends
           showDialog(
             context: context,
              builder: (_) =>
                  AlertDialog(
-                   title: Text('Hey, wake up!'),
-                   content: Text('Get back to work :)'),
-                   actions: [TextButton(child:Text("Ok"), onPressed: (){ leaveSleepingPage();},)],
+                   title: Text('Hey, wake up!',
+                     style: GoogleFonts.quicksand(
+                     fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 12, color: Colors.black, letterSpacing: .5),),
+                   ),
+                   content:
+                   Text('Get back to work :)',
+                     style: GoogleFonts.quicksand(
+                       fontWeight: FontWeight.w600,textStyle:
+                     TextStyle(color: Colors.black, letterSpacing: .5),),
+                 ),
+                   actions: [TextButton(child:Text("Ok",
+                     style: GoogleFonts.quicksand(
+                     fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 12, color: Colors.black, letterSpacing: .5),),
+                   ), onPressed: (){ leaveSleepingPage();},)],
                    elevation: 5,
               )
           );
@@ -94,11 +106,8 @@ class SleepingState extends State<Sleeping> {
                 ),
                 Text(
                   'Enjoy Your Sleep',
-                    style: TextStyle(
-                      fontFamily: 'Quicksand',
-                      color: Colors.black,
-                      fontSize: 30,
-                    )
+                    style: GoogleFonts.quicksand(
+                        fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 30, color: Colors.black, letterSpacing: .5),),
                 ),
                 Divider(
                   height: 10,
@@ -108,11 +117,8 @@ class SleepingState extends State<Sleeping> {
                   alignment: AlignmentDirectional(0, 0),
                   child: Text(
                     'You can put on your mask & relax now',
-                      style: TextStyle(
-                        fontFamily: 'Quicksand',
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      )
+                    style: GoogleFonts.quicksand(
+                      fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 15, color: Colors.black, letterSpacing: .5),),
                   ),
                 ),
                 Divider(
@@ -130,8 +136,11 @@ class SleepingState extends State<Sleeping> {
                       Row(mainAxisAlignment: MainAxisAlignment.center, //Center Row contents horizontally,
                       crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
                       children: [
-                        Icon(Icons.alarm_on, color: Colors.blue,size: 15,),
-                        Text('  Alarm Oned'),
+                        Icon(Icons.alarm_on, color: Colors.black,size: 15,),
+                        Text('  Alarm Oned',
+                          style: GoogleFonts.quicksand(
+                          fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 12, color: Colors.black, letterSpacing: .5),),
+                        ),
                     ],)
                   ],),
                 ),
@@ -142,10 +151,16 @@ class SleepingState extends State<Sleeping> {
                 Align(
                   alignment: AlignmentDirectional(0, 0),
                   child: ElevatedButton.icon(
-                    label: Text('Stop'),
+                    label: Text('Stop',
+                      style: GoogleFonts.quicksand(
+                      fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 15, color: Colors.black, letterSpacing: .5),),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                        minimumSize: Size(100,30)
+                    ),
                     onPressed: () { leaveSleepingPage();},
-                    icon: Icon(Icons.pause, size: 12,),
-
+                    icon: Icon(Icons.pause, size: 12,color: Colors.black,),
                   ),
                 ),
               ],
@@ -165,7 +180,9 @@ class SleepingState extends State<Sleeping> {
 
       return Text(
         '$hours:$minutes:$seconds',
-      style: TextStyle(fontSize: 80),
+        style: GoogleFonts.quicksand(
+          fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 80, color: Colors.black, letterSpacing: .5),),
+
     );
   }
 }

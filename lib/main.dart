@@ -1,6 +1,8 @@
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './mainScreen.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 class UserPreference {
   //consist of user settings
   double volume = 0;
@@ -22,7 +24,7 @@ class DevicePageState extends State<DevicePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Device Page')),
+        appBar: AppBar(title: Text('Device Page', style: GoogleFonts.quicksand(fontWeight: FontWeight.w600,),),backgroundColor: Colors.black,),
         body: Column(
             children: [
               Text(' ',style: TextStyle(fontSize: 30),),
@@ -33,7 +35,10 @@ class DevicePageState extends State<DevicePage> {
                 },
                 icon: Icon(
                   Icons.headphones , color: Colors.pink, size: 48.0,),
-                label: Text('SNMask v1.024',style: TextStyle(fontSize: 30,color: Colors.black)),
+                label: Text('SNMask v1.024',
+                    style: GoogleFonts.quicksand(
+                      fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 30, color: Colors.black, letterSpacing: .5),
+                )),
                 style: ElevatedButton.styleFrom(
                     primary: Colors.white,
                     minimumSize: Size(350,75)
