@@ -3,7 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'Sleeping.dart';
 import 'main.dart';
-
+import 'package:day_night_time_picker/day_night_time_picker.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class mainScreen extends StatefulWidget{
   State<StatefulWidget> createState(){
@@ -13,13 +14,36 @@ class mainScreen extends StatefulWidget{
 
  class mainScreenState extends State<mainScreen>{
 
+  AssetsAudioPlayer player = AssetsAudioPlayer();
+
   String timeused1 = "8 mins";
   String timeused2 = "16 mins";
   String timeused3 = "24 mins";
   bool mode1 = true;
-  static var duration;
+  var duration;
+  int totoalminutes = 0;
+  bool custom = false;
+  static int hours = 0;
+  static int minutes = 0;
+  static int seconds = 0;
+
+  TimeOfDay _time = TimeOfDay.now().replacing(hour: 11, minute: 30);
+  bool iosStyle = true;
+
+  void onTimeChanged(TimeOfDay newTime) {
+    setState(() {
+      _time = newTime;
+    });
+  }
+
   static bool sunrisedAlarm = false;
   static var sound;
+
+  @override
+  void initState(){
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +93,7 @@ class mainScreen extends StatefulWidget{
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.asset(
-                            'images/face.jpg',
+                            'assets/images/face.jpg',
                             width: 74,
                             height: 74,
                             fit: BoxFit.cover,
@@ -157,7 +181,7 @@ class mainScreen extends StatefulWidget{
                                     ),
                                     onPressed: () {
                                       Navigator.push(context,
-                                          MaterialPageRoute(builder:(context)=>DevicePage()));
+                                         MaterialPageRoute(builder:(context)=>DevicePage()));
                                     },
                                   ),
                                 ),
@@ -265,6 +289,9 @@ class mainScreen extends StatefulWidget{
                   ElevatedButton(
                       onPressed: (){
                         sound = 'rain';
+                        print('rain');
+                        player.stop();
+                        player.open(Audio('assets/sound/rain.mp3'),showNotification: true);
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Colors.blue,
@@ -283,6 +310,9 @@ class mainScreen extends StatefulWidget{
                   ElevatedButton(
                       onPressed: (){
                         sound = 'lecture';
+                        print('lecture');
+                        player.stop();
+                        player.open(Audio('assets/sound/lecture.mp3'),showNotification: true);
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Colors.blue,
@@ -299,24 +329,10 @@ class mainScreen extends StatefulWidget{
                   child:
                   ElevatedButton(
                       onPressed: (){
-                        sound = 'cafe';
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          minimumSize: Size(120,60)
-                      ),
-                      child: Column(children: [
-                        Icon(Icons.local_cafe , color: Colors.white, size: 50,),
-                        Text('Cafe',style: TextStyle(fontSize: 15,color: Colors.white)),
-                      ],)
-                  ),
-              ),
-              Padding(
-                  padding: EdgeInsets.fromLTRB(0,5,5,0),
-                  child:
-                  ElevatedButton(
-                      onPressed: (){
-                        sound = 'wind';
+                        sound = 'meditation';
+                        print('meditation');
+                        player.stop();
+                        player.open(Audio('assets/sound/meditation.mp3'),showNotification: true);
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Colors.blue,
@@ -324,7 +340,7 @@ class mainScreen extends StatefulWidget{
                       ),
                       child: Column(children: [
                         Icon(Icons.cloud , color: Colors.white, size: 50,),
-                        Text('Wind',style: TextStyle(fontSize: 15,color: Colors.white)),
+                        Text('Medit',style: TextStyle(fontSize: 15,color: Colors.white)),
                       ],)
                   ),
               ),
@@ -333,48 +349,40 @@ class mainScreen extends StatefulWidget{
                   child:
                   ElevatedButton(
                       onPressed: (){
-                        sound = 'snow';
+                        sound = 'lofi';
+                        print('lofi');
+                        player.stop();
+                        player.open(Audio('assets/sound/lofi.mp3'),showNotification: true);
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Colors.blue,
                           minimumSize: Size(120,60)
                       ),
                       child: Column(children: [
-                        Icon(Icons.snowing , color: Colors.white, size: 50,),
-                        Text('Snow',style: TextStyle(fontSize: 15,color: Colors.white)),
+                        Icon(Icons.local_cafe , color: Colors.white, size: 50,),
+                        Text('Lofi',style: TextStyle(fontSize: 15,color: Colors.white)),
                       ],)
                   ),
               ),
               Padding(
                   padding: EdgeInsets.fromLTRB(0,5,5,0),
                   child:
-                  ElevatedButton(onPressed: (){},
+                  ElevatedButton(
+                      onPressed: (){
+                        sound = 'Custom';
+                        player.stop();
+                        print(custom);
+                      },
                       style: ElevatedButton.styleFrom(
                           primary: Colors.blue,
                           minimumSize: Size(120,60)
                       ),
                       child: Column(children: [
-                        Icon(Icons.bathroom , color: Colors.white, size: 50,),
-                        Text('Rain',style: TextStyle(fontSize: 15,color: Colors.white)),
+                        Icon(Icons.favorite_border , color: Colors.white, size: 50,),
+                        Text('Custom',style: TextStyle(fontSize: 15,color: Colors.white)),
                       ],)
                   ),
               ),
-              Padding(
-                  padding: EdgeInsets.fromLTRB(0,5,5,0),
-                  child:
-                  ElevatedButton(onPressed: (){},
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          minimumSize: Size(120,60)
-                      ),
-                      child: Column(children: [
-                        Icon(Icons.book , color: Colors.white, size: 50,),
-                        Text('Lecture',style: TextStyle(fontSize: 15,color: Colors.white)),
-                      ],)
-                  ),
-              ),
-
-
             ],
           ),
         ),
@@ -397,8 +405,14 @@ class mainScreen extends StatefulWidget{
                   child:
                   ElevatedButton(
                     onPressed: (){
-                      if(mode1) duration = '8 mins';
-                      else duration = '6 hrs';
+                      if(mode1) {
+                        hours = 0; minutes = 8; seconds = 0;
+                        custom = false;
+                      }
+                      else {
+                        hours = 6; minutes = 0; seconds = 0;
+                        custom = false;
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Colors.blue,
@@ -413,8 +427,14 @@ class mainScreen extends StatefulWidget{
                   child:
                   ElevatedButton(
                     onPressed: (){
-                      if(mode1) duration = '16 mins';
-                      else duration = '8 hrs';
+                      if(mode1) {
+                        hours = 0; minutes = 16; seconds = 0;
+                        custom = false;
+                      }
+                      else {
+                        hours = 8; minutes = 0; seconds = 0;
+                        custom = false;
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Colors.blue,
@@ -429,8 +449,14 @@ class mainScreen extends StatefulWidget{
                   child:
                   ElevatedButton(
                     onPressed: (){
-                      if(mode1) duration = '24 mins';
-                      else duration = '10 hrs';
+                      if(mode1) {
+                        hours = 0; minutes = 24; seconds = 0;
+                        custom = false;
+                      }
+                      else {
+                        hours = 10; minutes = 0; seconds = 0;
+                        custom = false;
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Colors.blue,
@@ -444,7 +470,16 @@ class mainScreen extends StatefulWidget{
                   padding: EdgeInsets.fromLTRB(0,5,5,0),
                   child:
                   ElevatedButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      custom = true;
+                      Navigator.of(context).push(
+                        showPicker(
+                          context: context,
+                          value: _time,
+                          onChange: onTimeChanged,
+                        ),
+                      );
+                      },
                     style: ElevatedButton.styleFrom(
                         primary: Colors.blue,
                         minimumSize: Size(90,50)
@@ -470,7 +505,7 @@ class mainScreen extends StatefulWidget{
             ],),
         ),
 
-      //final button
+      //final sleep button
       Padding(
         padding: EdgeInsets.fromLTRB(0,0,0,0),
         child:
@@ -481,8 +516,7 @@ class mainScreen extends StatefulWidget{
           ),
           ElevatedButton.icon(
             onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder:(context)=>Sleeping()));
+              startSleeping();
             },
             icon: Icon(
               Icons.nights_stay_outlined , color: Colors.white, size: 20.0,),
@@ -495,10 +529,36 @@ class mainScreen extends StatefulWidget{
 
         ],)
       ),
-
-
     ])));
 
+  }
+
+  void startSleeping(){
+    if(hours==0 && minutes ==0 && seconds==0){
+      showDialog(
+          context: context,
+          builder: (_) =>
+              AlertDialog(
+                title: Text('Hey!'),
+                content: Text('You forget to set the duration first!'),
+                elevation: 5,
+              ),
+        barrierDismissible: true,
+      );
+    }else{
+
+    if(custom){
+      totoalminutes = (_time.hour*60 + _time.minute)-(DateTime.now().hour*60+DateTime.now().minute);
+      totoalminutes = totoalminutes>0? totoalminutes:totoalminutes+24*60;
+      hours = totoalminutes ~/ 60;
+      minutes = totoalminutes % 60;
+      print(hours);
+      print(minutes);
+    }
+
+    Navigator.push(context,
+        MaterialPageRoute(builder:(context)=>Sleeping()));
+    }
   }
 }
 
@@ -592,20 +652,3 @@ class CrazySwitchState extends State<CrazySwitch> with SingleTickerProviderState
 }
 
 
-
-/*ElevatedButton(
-onPressed:(){},
-style: ElevatedButton.styleFrom(
-primary: Colors.blue,
-minimumSize: Size(350,60),
-),
-child:
-Center(
-child:
-Row(mainAxisSize: MainAxisSize.max, children: [
-Icon(Icons.night_shelter_sharp, color: Colors.white, size: 48.0,),
-Text('Start Now',style: TextStyle(fontSize: 30,color: Colors.white)),
-SizedBox.square(dimension: 4),],
-),
-),
-*/
