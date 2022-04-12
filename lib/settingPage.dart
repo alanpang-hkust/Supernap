@@ -5,6 +5,8 @@ import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:supernap/mainScreen.dart';
 import 'alarm.dart';
+import 'newMainScreen.dart';
+import 'main.dart';
 class settingPage extends StatefulWidget {
   const settingPage({Key? key}) : super(key: key);
   State<StatefulWidget> createState(){
@@ -26,41 +28,57 @@ class settingPageState extends State<settingPage> {
     // TODO: implement build
 
     return Scaffold(
-      //appBar: AppBar(title: Text('Settings', style: GoogleFonts.quicksand(fontWeight: FontWeight.w600,),),backgroundColor: Colors.black,),
+      appBar:
+      AppBar(
+        title: Text('Settings', style: GoogleFonts.quicksand(
+          fontWeight: FontWeight.w600,
+          textStyle: TextStyle(
+              fontSize: 22, color: Colors.black, letterSpacing: .5),),),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder:(context)=>settingPage()));
+            },
+            child:
+            Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child:
+              Container(
+                height: 25,
+                child:
+                IconButton(
+                  icon: Icon(
+                    Icons.keyboard_return,
+                    color: Colors.black,
+                    size: 25,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context,
+                        MaterialPageRoute(builder:(context)=>newMainScreen()));
+                  },
+                ),
+              ),
+            ),
+
+          )
+        ],
+
+      ),
+
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
             // user card
-            Padding(
-                padding: EdgeInsets.fromLTRB(20,0,0,0),
-                child:
-                Row(
-                  children: [
-                    Text('Settings                                     ',
-                      style: GoogleFonts.quicksand(
-                        fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: .5),),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.keyboard_return,
-                        color: Colors.black,
-                        size: 25,
-                      ),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder:(context)=>mainScreen()));
-                      },
-                    ),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                )
-            ),
 
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
               child:
+
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -72,96 +90,108 @@ class settingPageState extends State<settingPage> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Column(
+                    child:
+                    InkWell(
+                        onTap: (){
+                          Navigator.push(context,
+                              MaterialPageRoute(builder:(context)=>DevicePage()));
+                        },
+                        child:
+                        Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Padding(
-                              padding:
-                              EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.asset(
-                                  'assets/images/face.jpg',
-                                  width: 74,
-                                  height: 74,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding:
-                            EdgeInsetsDirectional.fromSTEB(9, 2, 0, 0),
-                            child:
                             Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Row(
+                                Padding(
+                                  padding:
+                                  EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.asset(
+                                      'assets/images/face.jpg',
+                                      width: 74,
+                                      height: 74,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                EdgeInsetsDirectional.fromSTEB(9, 2, 0, 0),
+                                child:
+                                Column(
                                   mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Align(
-                                          alignment:
-                                          AlignmentDirectional(0, 0),
-                                          child: Text(
-                                            'SNMask v1.024',
-                                            style: GoogleFonts.quicksand(
-                                              fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 13, color: Colors.black, letterSpacing: .5),),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                          AlignmentDirectional(0, 0),
-                                          child: Padding(
-                                            padding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0, 4, 0, 4),
-                                            child: Text(
-                                              'Simon\'s Mask',
-                                              style: GoogleFonts.quicksand(
-                                                fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 13, color: Colors.black, letterSpacing: .5),),
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Align(
+                                              alignment:
+                                              AlignmentDirectional(0, 0),
+                                              child: Text(
+                                                'SNMask v1.024',
+                                                style: GoogleFonts.quicksand(
+                                                  fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 13, color: Colors.black, letterSpacing: .5),),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                          AlignmentDirectional(0, 0),
-                                          child: Padding(
-                                            padding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0, 4, 0, 4),
-                                            child: Text(
-                                              'Battery: 69%',
-                                              style: GoogleFonts.quicksand(
-                                                fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 13, color: Colors.black, letterSpacing: .5),),
+                                            Align(
+                                              alignment:
+                                              AlignmentDirectional(0, 0),
+                                              child: Padding(
+                                                padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 4, 0, 4),
+                                                child: Text(
+                                                  'Simon\'s Mask',
+                                                  style: GoogleFonts.quicksand(
+                                                    fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 13, color: Colors.black, letterSpacing: .5),),
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                            Align(
+                                              alignment:
+                                              AlignmentDirectional(0, 0),
+                                              child: Padding(
+                                                padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 4, 0, 4),
+                                                child: Text(
+                                                  'Battery: 69%',
+                                                  style: GoogleFonts.quicksand(
+                                                    fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 13, color: Colors.black, letterSpacing: .5),),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
                                   ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+
                     ),
+
                   ),
                 ],
               ),
+
+
             ),
 
 

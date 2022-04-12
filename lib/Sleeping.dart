@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'alarm.dart';
+import 'newMainScreen.dart';
 
 class Sleeping extends StatefulWidget {
   const Sleeping({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class SleepingState extends State<Sleeping> {
   void reset(){
     if(isCountdown){
       setState(() {
-        coundownDuration = Duration(hours: mainScreenState.hours, minutes: mainScreenState.minutes,seconds: mainScreenState.seconds);
+        coundownDuration = Duration(hours: newMainScreenState.hours, minutes: newMainScreenState.minutes,seconds: newMainScreenState.seconds);
         duration = coundownDuration;
       });
     }else
@@ -68,7 +69,7 @@ class SleepingState extends State<Sleeping> {
                   elevation: 5,
                 )
         );
-        if(mainScreenState.sunrisedAlarm){
+        if(newMainScreenState.sunrisedAlarm){
           //when countdown ends
           player.open(Audio(alarmState.path));
         }
@@ -83,11 +84,11 @@ class SleepingState extends State<Sleeping> {
   }
 
   void leaveSleepingPage(){
-    mainScreenState.sunrisedAlarm = false;
+    newMainScreenState.sunrisedAlarm = false;
     timer?.cancel();
     player.stop();
-    Navigator.push(context,
-        MaterialPageRoute(builder:(context)=>mainScreen()));
+    Navigator.pop(context,
+        MaterialPageRoute(builder:(context)=>newMainScreen()));
   }
 
 
@@ -159,7 +160,7 @@ class SleepingState extends State<Sleeping> {
                             height: 14,
                             color: Colors.transparent,
                           ),
-                          if (mainScreenState.sunrisedAlarm )
+                          if (newMainScreenState.sunrisedAlarm )
                             Row(mainAxisAlignment: MainAxisAlignment.center, //Center Row contents horizontally,
                               crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
                               children: [

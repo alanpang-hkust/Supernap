@@ -10,6 +10,7 @@ import 'settingPage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'newMainScreen.dart';
 
 class mainScreen extends StatefulWidget{
   State<StatefulWidget> createState(){
@@ -20,7 +21,6 @@ class mainScreen extends StatefulWidget{
  class mainScreenState extends State<mainScreen> {
 
   AssetsAudioPlayer player = AssetsAudioPlayer();
-
   String timeused1 = "5 secs";
   String timeused2 = "16 mins";
   String timeused3 = "24 mins";
@@ -190,7 +190,7 @@ class mainScreen extends StatefulWidget{
                                         ),
                                         onPressed: () {
                                           Navigator.push(context,
-                                              MaterialPageRoute(builder:(context)=>settingPage()));
+                                              MaterialPageRoute(builder:(context)=>newMainScreen()));
                                         },
                                       ),
                                     ),
@@ -603,21 +603,6 @@ class mainScreen extends StatefulWidget{
         ),
 
         //sunrise module
-          Padding(
-                padding: EdgeInsets.fromLTRB(20,5,0,50),
-                child:
-                Row(children: [
-                  Text('Sunrise Alarm',
-                    style: GoogleFonts.quicksand(
-                    fontWeight: FontWeight.w600,textStyle: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: .5),),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(160,0,0,0),
-                    child:
-                    CrazySwitch(),
-                  ),
-                ],),
-            ),
 
           //final sleep button
           Padding(
@@ -702,93 +687,5 @@ class mainScreen extends StatefulWidget{
   }
 }
 
-class CrazySwitch extends StatefulWidget {
-  @override
-  CrazySwitchState createState() => CrazySwitchState();
-}
-class CrazySwitchState extends State<CrazySwitch> with SingleTickerProviderStateMixin{
-
-  bool isChecked = false;
-  Duration _duration = Duration(milliseconds: 370);
-  var _animation;
-  var _animationController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _animationController = AnimationController(
-        vsync: this,
-        duration: _duration
-    );
-
-    _animation = AlignmentTween(
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight
-    ).animate(
-      CurvedAnimation(
-          parent: _animationController,
-          curve: Curves.bounceOut,
-          reverseCurve: Curves.bounceIn
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child){
-        return Container(
-          width: 70,
-          height: 30,
-          padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
-          decoration: BoxDecoration(
-              color: isChecked ? Colors.greenAccent : Colors.blueGrey,
-              borderRadius: BorderRadius.all(
-                Radius.circular(30),
-              ),
-          ),
-          child: Stack(
-            children: <Widget>[
-              Align(
-                alignment: _animation.value,
-                child: GestureDetector(
-                  onTap: (){
-                    setState(() {
-                      if(_animationController.isCompleted){
-                        _animationController.reverse();
-                      }else{
-                        _animationController.forward();
-                      }
-
-                      isChecked = !isChecked;
-                      mainScreenState.sunrisedAlarm= isChecked;
-                    });
-                  },
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
 
 
