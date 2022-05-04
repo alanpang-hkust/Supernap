@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'settingPage.dart';
-
+import 'newMainScreen.dart';
 class alarm extends StatefulWidget {
   const alarm({Key? key}) : super(key: key);
   State<StatefulWidget> createState(){
@@ -91,7 +91,7 @@ class alarmState extends State<alarm> {
                           onPressed: () {
                             player.stop();
                             Navigator.push(context,
-                                MaterialPageRoute(builder:(context)=>settingPage()));
+                                MaterialPageRoute(builder:(context)=>newMainScreen()));
                           },
                         ),
                       ],
@@ -132,15 +132,50 @@ class alarm_sounds{
       alarm_sounds(2,"ballad-alarm","Alexander Nakarada"),
       alarm_sounds(3,"enrique_granados-twelve_spanish_dances-oriental","Monica Alianello"),
       alarm_sounds(4,"flying-alarm","Bryan Teoh"),
-      alarm_sounds(5,"Alarm 5","Author 5"),
-      alarm_sounds(6,"Alarm 6","Author 6"),
-      alarm_sounds(7,"Alarm 7","Author 7"),
-      alarm_sounds(8,"Alarm 8","Author 8"),
-      alarm_sounds(9,"Alarm 9","Author 9"),
-      alarm_sounds(10,"Alarm 10","Author 10"),
-      alarm_sounds(11,"Alarm 11","Author 11"),
-      alarm_sounds(12,"Alarm 12","Author 12"),
 
     ];
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
