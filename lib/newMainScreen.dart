@@ -309,7 +309,7 @@ class newMainScreenState extends State<newMainScreen> {
                                             m2color = Colors.transparent;
                                             m3color = Colors.transparent;
                                             music_player.stop();
-                                            music_player.open(Audio('assets/sound/jazz.mp3'),showNotification: true);
+                                            music_player.open(Audio('assets/sound/Jazz.mp3'),showNotification: true);
                                             music_player.setVolume(0);
                                           });
                                         },
@@ -401,7 +401,7 @@ class newMainScreenState extends State<newMainScreen> {
                                         m2color = Colors.white;
                                         m3color = Colors.transparent;
                                         music_player.stop();
-                                        music_player.open(Audio('assets/sound/piano.mp3'),showNotification: true);
+                                        music_player.open(Audio('assets/sound/Piano.mp3'),showNotification: true);
                                         music_player.setVolume(0);
                                       });
                                     },
@@ -494,7 +494,7 @@ class newMainScreenState extends State<newMainScreen> {
                                         m2color = Colors.transparent;
                                         m3color = Colors.white;
                                         music_player.stop();
-                                        music_player.open(Audio('assets/sound/lofi.mp3'),showNotification: true);
+                                        music_player.open(Audio('assets/sound/LoFi.mp3'),showNotification: true);
                                         music_player.setVolume(0);
 
                                       });
